@@ -12,7 +12,7 @@ public class Controller {
     public Controller(){
         this.model = new Model();;
 
-        viewBuilder = new ViewBuilder(model, this::Calculate);
+        viewBuilder = new ViewBuilder(model);
 
         model.okToCalculateProperty().bind(Bindings.createBooleanBinding(this::isDataValid, model.AProperty(), model.BProperty(), model.CProperty()));
 
@@ -59,32 +59,32 @@ public class Controller {
 
 
 
-    private void Calculate() {
-        double A = Double.parseDouble(model.getA());
-        double B = Double.parseDouble(model.getB());
-        double C = Double.parseDouble(model.getC());
-
-        double D = Math.pow(B, 2) - 4 * A * C;
-
-        if(D > 0){
-            double x1 = (-B + Math.sqrt(D)) / (2 * A);
-            double x2 = (-B - Math.sqrt(D)) / (2 * A);
-
-            model.setx1Enabled(true);
-            model.setx1(String.valueOf(x1));
-            model.setx2Enabled(true);
-            model.setx2(String.valueOf(x2));
-        }else if(D == 0){
-            double x = -B / (2 * A);
-
-            model.setx1Enabled(true);
-            model.setx1(String.valueOf(x));
-            model.setx2Enabled(false);
-        } else {
-            model.setx1Enabled(false);
-            model.setx2Enabled(false);
-        }
-    }
+//    private void Calculate() {
+//        double A = Double.parseDouble(model.getA());
+//        double B = Double.parseDouble(model.getB());
+//        double C = Double.parseDouble(model.getC());
+//
+//        double D = Math.pow(B, 2) - 4 * A * C;
+//
+//        if(D > 0){
+//            double x1 = (-B + Math.sqrt(D)) / (2 * A);
+//            double x2 = (-B - Math.sqrt(D)) / (2 * A);
+//
+//            model.setx1Enabled(true);
+//            model.setx1(String.valueOf(x1));
+//            model.setx2Enabled(true);
+//            model.setx2(String.valueOf(x2));
+//        }else if(D == 0){
+//            double x = -B / (2 * A);
+//
+//            model.setx1Enabled(true);
+//            model.setx1(String.valueOf(x));
+//            model.setx2Enabled(false);
+//        } else {
+//            model.setx1Enabled(false);
+//            model.setx2Enabled(false);
+//        }
+//    }
 
     private boolean isDataValid(){
         try {

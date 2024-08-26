@@ -23,11 +23,11 @@ import java.util.concurrent.Callable;
 public class ViewBuilder implements Builder<Region> {
 
     private final Model model;
-    private final Runnable calcFunction;
+//    private final Runnable calcFunction;
 	
-    public ViewBuilder(Model model, Runnable calcFunct){
+    public ViewBuilder(Model model){
         this.model = model;
-        this.calcFunction = calcFunct;
+//        this.calcFunction = calcFunct;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ViewBuilder implements Builder<Region> {
         Button result = new Button("Calcular");
         result.setMaxWidth(Double.MAX_VALUE);
         result.disableProperty().bind(model.okToCalculateProperty().not());
-        result.setOnAction(evt -> calcFunction.run());
+//        result.setOnAction(evt -> calcFunction.run());
         return result;
     }
 
