@@ -3,7 +3,6 @@ package test.satoshi.ecuacionesCuadraticas;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
-import javafx.css.StyleClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
