@@ -14,6 +14,8 @@ public class Controller {
 
         viewBuilder = new ViewBuilder(model);
 
+        model.okToCalculateProperty().bind(Bindings.createBooleanBinding(this::isDataValid, model.AProperty(), model.BProperty(), model.CProperty()));
+
         model.DProperty().bind(Bindings.createDoubleBinding(this::CalcDiscriminante, model.AProperty(), model.BProperty(), model.CProperty(), model.okToCalculateProperty()));
 
         model.x1Property().bind(Bindings.createStringBinding(this::CalcX1, model.DProperty(), model.okToCalculateProperty()));
@@ -26,7 +28,7 @@ public class Controller {
     }
 
     private double CalcDiscriminante(){
-        if(isDataValid()){
+        if(model.getOkToCalculate()){
             double A = Double.parseDouble(model.getA());
             double B = Double.parseDouble(model.getB());
             double C = Double.parseDouble(model.getC());
