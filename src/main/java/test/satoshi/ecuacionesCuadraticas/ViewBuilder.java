@@ -1,5 +1,6 @@
 package test.satoshi.ecuacionesCuadraticas;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
@@ -10,7 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Builder;
+import java.util.Objects;
 
 
 public class ViewBuilder implements Builder<Region> {
@@ -26,7 +29,9 @@ public class ViewBuilder implements Builder<Region> {
         VBox result = new VBox(6,
                 createEquationPrompt(),
                 createEquationRow(),
+                createLabelDiscriminante(),
                 createOutputRow());
+        result.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/styles.css")).toExternalForm());
         result.setAlignment(Pos.CENTER);
         result.setPadding(new Insets(10));
         result.setPrefWidth(175);
@@ -34,8 +39,10 @@ public class ViewBuilder implements Builder<Region> {
     }
 
     private Region createEquationPrompt(){
-        Label result = styledLabel("Inserte los valores de a, b y c", "");
-        result.setMinWidth(152);
+        Label result = styledLabel("Inserte los parámetros de la ecuación", "prompt-label");
+        result.setWrapText(true);
+        result.setTextAlignment(TextAlignment.CENTER);
+        result.setMinWidth(170);
         return result;
     }
 
@@ -52,11 +59,16 @@ public class ViewBuilder implements Builder<Region> {
         return equationRow;
     }
 
+    private Region createLabelDiscriminante(){
+        Label result = styledLabel("", "discr-label");
+        result.textProperty().bind(Bindings.createStringBinding(() -> "D = " + model.getD(), model.DProperty()));
+        return result;
+    }
 
     private Region createOutputRow(){
         HBox outputRow = new HBox(10,
-            createOutputField("x1 =", model.x1Property(), model.X1EnabledProperty()),
-            createOutputField("x2 =", model.x2Property(), model.X2EnabledProperty()));
+            createOutputField("x₁ =", model.x1Property(), model.X1EnabledProperty()),
+            createOutputField("x₂ =", model.x2Property(), model.X2EnabledProperty()));
         outputRow.setAlignment(Pos.CENTER);
         return outputRow;
     }
@@ -87,25 +99,25 @@ public class ViewBuilder implements Builder<Region> {
 
     private TextField shortTextField(){
         TextField result = new TextField();
-        result.setMinWidth(24);
+        result.setMinWidth(33);
         return result;
     }
 
     private Label equationLabel(String text){
-        Label result = styledLabel(text, "");
-        result.setMinWidth(25);
+        Label result = styledLabel(text, "prompt-label");
+        result.setMinWidth(33);
         return result;
     }
 
     private Label outputLabel(String text){
-        Label result = styledLabel(text, "");
-        result.setMinWidth(24);
+        Label result = styledLabel(text, "prompt-label");
+        result.setMinWidth(30);
         return result;
     }
 
     private Label styledLabel(String text, String styleClass){
         Label label = new Label(text);
-        label.setStyle(styleClass);
+        label.getStyleClass().add(styleClass);
         return label;
     }
 }
