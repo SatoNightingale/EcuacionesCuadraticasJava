@@ -1,14 +1,9 @@
 package test.satoshi.ecuacionesCuadraticas;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -17,17 +12,13 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Builder;
 
-import java.util.concurrent.Callable;
-
 
 public class ViewBuilder implements Builder<Region> {
 
     private final Model model;
-//    private final Runnable calcFunction;
-	
+
     public ViewBuilder(Model model){
         this.model = model;
-//        this.calcFunction = calcFunct;
     }
 
     @Override
@@ -61,13 +52,6 @@ public class ViewBuilder implements Builder<Region> {
         return equationRow;
     }
 
-    private Region createCalculateButton(){
-        Button result = new Button("Calcular");
-        result.setMaxWidth(Double.MAX_VALUE);
-        result.disableProperty().bind(model.okToCalculateProperty().not());
-//        result.setOnAction(evt -> calcFunction.run());
-        return result;
-    }
 
     private Region createOutputRow(){
         HBox outputRow = new HBox(10,

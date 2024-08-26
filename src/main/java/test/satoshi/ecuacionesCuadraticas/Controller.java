@@ -14,8 +14,6 @@ public class Controller {
 
         viewBuilder = new ViewBuilder(model);
 
-        model.okToCalculateProperty().bind(Bindings.createBooleanBinding(this::isDataValid, model.AProperty(), model.BProperty(), model.CProperty()));
-
         model.DProperty().bind(Bindings.createDoubleBinding(this::CalcDiscriminante, model.AProperty(), model.BProperty(), model.CProperty(), model.okToCalculateProperty()));
 
         model.x1Property().bind(Bindings.createStringBinding(this::CalcX1, model.DProperty(), model.okToCalculateProperty()));
@@ -28,7 +26,7 @@ public class Controller {
     }
 
     private double CalcDiscriminante(){
-        if(model.getOkToCalculate()){
+        if(isDataValid()){
             double A = Double.parseDouble(model.getA());
             double B = Double.parseDouble(model.getB());
             double C = Double.parseDouble(model.getC());
@@ -38,7 +36,7 @@ public class Controller {
     }
 
     private String CalcX1(){
-        if(model.getOkToCalculate() && model.getx1Enabled()){
+        if(isDataValid() && model.getx1Enabled()){
             double A = Double.parseDouble(model.getA());
             double B = Double.parseDouble(model.getB());
             double D = model.getD();
@@ -48,7 +46,7 @@ public class Controller {
     }
 
     private String CalcX2(){
-        if(model.getOkToCalculate() && model.getx2Enabled()){
+        if(isDataValid() && model.getx2Enabled()){
             double A = Double.parseDouble(model.getA());
             double B = Double.parseDouble(model.getB());
             double D = model.getD();
@@ -56,35 +54,6 @@ public class Controller {
         }
         return "";
     }
-
-
-
-//    private void Calculate() {
-//        double A = Double.parseDouble(model.getA());
-//        double B = Double.parseDouble(model.getB());
-//        double C = Double.parseDouble(model.getC());
-//
-//        double D = Math.pow(B, 2) - 4 * A * C;
-//
-//        if(D > 0){
-//            double x1 = (-B + Math.sqrt(D)) / (2 * A);
-//            double x2 = (-B - Math.sqrt(D)) / (2 * A);
-//
-//            model.setx1Enabled(true);
-//            model.setx1(String.valueOf(x1));
-//            model.setx2Enabled(true);
-//            model.setx2(String.valueOf(x2));
-//        }else if(D == 0){
-//            double x = -B / (2 * A);
-//
-//            model.setx1Enabled(true);
-//            model.setx1(String.valueOf(x));
-//            model.setx2Enabled(false);
-//        } else {
-//            model.setx1Enabled(false);
-//            model.setx2Enabled(false);
-//        }
-//    }
 
     private boolean isDataValid(){
         try {
