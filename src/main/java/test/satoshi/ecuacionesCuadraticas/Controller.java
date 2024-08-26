@@ -12,7 +12,7 @@ public class Controller {
     public Controller(){
         this.model = new Model();;
 
-        viewBuilder = new ViewBuilder(model);
+        viewBuilder = new ViewBuilder(model, this::styleHandler);
 
         model.okToCalculateProperty().bind(Bindings.createBooleanBinding(this::isDataValid, model.AProperty(), model.BProperty(), model.CProperty()));
 
@@ -55,6 +55,17 @@ public class Controller {
             return String.valueOf((-B - Math.sqrt(D)) / (2 * A));
         }
         return "";
+    }
+
+    private String styleHandler(){
+        if(model.getD() > 0) {
+            return "-fx-text-fill: #00ff00;";
+        } else if(model.getD() == 0) {
+            return "-fx-text-fill: #ffc000;";
+        } else if(model.getD() < 0){
+            return "-fx-text-fill: #ff0000;";
+        }
+        return "-fx-font-style: italic; -fx-text-fill: #c0c0c0;";
     }
 
     private boolean isDataValid(){

@@ -3,6 +3,7 @@ package test.satoshi.ecuacionesCuadraticas;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.StringProperty;
+import javafx.css.StyleClass;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -14,14 +15,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Builder;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 
 public class ViewBuilder implements Builder<Region> {
 
     private final Model model;
+    private final Callable<String> DStyleHandler;
 
-    public ViewBuilder(Model model){
+    public ViewBuilder(Model model, Callable<String> DStyleHandler){
         this.model = model;
+        this.DStyleHandler = DStyleHandler;
     }
 
     @Override
@@ -62,6 +66,8 @@ public class ViewBuilder implements Builder<Region> {
     private Region createLabelDiscriminante(){
         Label result = styledLabel("", "discr-label");
         result.textProperty().bind(Bindings.createStringBinding(() -> "D = " + model.getD(), model.DProperty()));
+        result.styleProperty().bind(Bindings.createStringBinding(DStyleHandler, model.DProperty()));
+
         return result;
     }
 
