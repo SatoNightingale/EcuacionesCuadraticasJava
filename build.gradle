@@ -1,7 +1,9 @@
 plugins {
     id 'java'
     id 'application'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.beryx.jlink' version '2.24.1'
 }
 
 group = 'test.satoshi.ecuacionesCuadraticas'
@@ -11,13 +13,29 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = '16'
+targetCompatibility = '16'
+
 application {
+    mainModule = 'test.satoshi.ecuacionesCuadraticas'
     mainClass = 'test.satoshi.ecuacionesCuadraticas.Main'
 }
 
 javafx {
     version '21'
     modules = ['javafx.controls', 'javafx.graphics']
+}
+
+jlink {
+    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'app'
+    }
+}
+
+jlinkZip {
+    group = 'distribution'
 }
 
 //dependencies {

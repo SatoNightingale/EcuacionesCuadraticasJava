@@ -59,7 +59,7 @@ public class Controller {
 
     private String styleHandler(){
         if(model.getD() > 0) {
-            return "-fx-text-fill: #00ff00;";
+            return "-fx-text-fill: #28d55c;";
         } else if(model.getD() == 0) {
             return "-fx-text-fill: #ffc000;";
         } else if(model.getD() < 0){
